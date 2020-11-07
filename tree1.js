@@ -31,11 +31,11 @@ function branch(len) {
   if(len > 1/* && r < branchProb*/) {
     push();
     rotate(angle);
-    branch(len * leftScale);
+    branch(len * rightScale);
     pop();
     push();
     rotate(-angle);
-    branch(len * rightScale);
+    branch(len * leftScale);
     pop();
   }
   else {
