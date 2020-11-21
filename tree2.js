@@ -1,13 +1,17 @@
+var tabs = 5;
+var health = 0 + 0.002*tabs;
+
+
 var angle1 = 0.5;
 var angle2 = 0.6;
 var angle3 = 0.4;
 
-var leftScale1 = 0.77;
-var rightScale1 = 0.67;
-var leftScale2 = 0.82;
-var rightScale2 = 0.72;
-var leftScale3 = 0.56;
-var rightScale3 = 0.77;
+var leftScale1 = 0.77-6*health;
+var rightScale1 = 0.67-2*health;
+var leftScale2 = 0.82-4*health;
+var rightScale2 = 0.72-3*health;
+var leftScale3 = 0.56-5*health;
+var rightScale3 = 0.77-7*health;
 
 var level = 0;
 var branchProb = 0.8;
