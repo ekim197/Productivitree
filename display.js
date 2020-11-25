@@ -1,7 +1,74 @@
 var tabs;
+var health;
 
 chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
     tabs = response.status;
+  }); 
+
+  chrome.runtime.sendMessage({method: "getHealth"}, function(response) {
+
+    health = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getAngle1"}, function(response) {
+
+    angle1 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getAngle2"}, function(response) {
+
+    angle2 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getAngle3"}, function(response) {
+
+    angle3 = response.status;
+  });
+
+
+  chrome.runtime.sendMessage({method: "getleftscale1"}, function(response) {
+
+    leftScale1 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getrightscale1"}, function(response) {
+
+    rightScale1 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getleftscale2"}, function(response) {
+
+    leftScale2 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getrightscale2"}, function(response) {
+
+    rightScale2 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getleftscale3"}, function(response) {
+
+    leftScale3 = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getrightscale3"}, function(response) {
+
+    rightScale3 = response.status;
+  });
+
+
+
+  chrome.runtime.sendMessage({method: "getlevel"}, function(response) {
+
+    level = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getbranchprob"}, function(response) {
+
+    branchProb = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getr"}, function(response) {
+
+    r = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getshrinkage"}, function(response) {
+
+    shrinkage = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getthinness"}, function(response) {
+
+    thinness = response.status;
   });
 /*
 async function getTabs() {
@@ -10,7 +77,32 @@ async function getTabs() {
 
 */
 
-var health = 0 + 0.002*tabs;
+
+
+function setup() {
+    console.log(tabs);
+    console.log(health);
+    console.log(angle1);
+    console.log(angle2);
+    console.log(angle3);
+    console.log(leftScale1);
+    console.log(rightScale1);
+    console.log(leftScale2);
+    console.log(rightScale2);
+    console.log(leftScale3);
+    console.log(rightScale3);
+
+    console.log(level);
+    console.log(branchProb);
+    console.log(r);
+    console.log(shrinkage);
+    console.log(thinness);
+    
+createCanvas(windowWidth, windowHeight);
+r = Math.random(0, 1);
+}
+
+/*var health = 0 + 0.002*tabs;
 var angle1 = 0.5;
 var angle2 = 0.6;
 var angle3 = 0.4;
@@ -26,15 +118,12 @@ var level = 0;
 var branchProb = 0.8;
 var r = 1;
 var shrinkage = 0;
-var thinness = 8;
+var thinness = 8; */
 
-function setup() {
-createCanvas(windowWidth, windowHeight);
-r = Math.random(0, 1);
-}
+
+
 
 function draw() {
-console.log(tabs);
 background(230);
 translate(windowWidth/2, height);
 branch1(windowHeight/4 - shrinkage);

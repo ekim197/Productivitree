@@ -18,7 +18,8 @@
     },
     "permissions": [
         "tabs",
-        "notifications" 
+        "notifications",
+        "storage"
       ],
 
     "chrome_url_overrides" : {
