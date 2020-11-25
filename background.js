@@ -1,14 +1,41 @@
-var x
-chrome.tabs.query({windowType:'normal'}, function(tabs) {
-    console.log('Number of open tabs in all normal browser windows:',tabs.length);
-    x = tabs.length
-}); 
+function getAllStats(callback) {
+  chrome.windows.getAll({populate: true}, function (window_list) {
+    callback(window_list);
+  });
+}
+
+function displayResults(window_list) {
+  allWindowsTabCount = 0;
+  windowCount = 0;
+  for(var i=0; i<window_list.length; i++) { 
+    allWindowsTabCount += window_list[i].tabs.length;
+  } 
+  localStorage["windowsCount"] = window_list.length;
+  localStorage["allWindowsTabsCount"] = allWindowsTabCount;
+}
+
+  chrome.tabs.onCreated.addListener(function(tab) {
+    getAllStats(displayResults);
+  });
 
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if(request.message == "I need tabs") {
-    sendResponse({message : x})
-  }
-})
+  chrome.tabs.onRemoved.addListener(function(tab) {
+    getAllStats(displayResults);
+  });
 
 
+  chrome.windows.onCreated.addListener(function(tab) {
+    getAllStats(displayResults);
+  });
+
+
+  chrome.windows.onRemoved.addListener(function(tab) {
+    getAllStats(displayResults);
+  });
+
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getTabs")
+      sendResponse({status: localStorage["allWindowsTabsCount"]});
+    else
+      sendResponse({}); // snub them.
+});
