@@ -1,3 +1,15 @@
+var tabs = 1;
+
+chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
+    tabs = response.status;
+  });
+/*
+async function getTabs() {
+    tabs = localStorage["allWindowsTabCount"]
+}
+
+*/
+
 if(tabs > 26)
   tabs = 26;
 var health = 0 + 0.002*tabs;
@@ -24,11 +36,14 @@ var branchProb = 0.8;
 var r = 1;
 var shrinkage = 0;
 var thinness = 6 + tabs;
+var r = 0;
+var g = 0;
+var b = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   if(random() > 0.5) {
-    rightSkew = skew;
+    rightSkew = 0.8*skew;
   }
   else {
     leftSkew = skew;
@@ -39,6 +54,9 @@ function setup() {
   rightScale2 = random(0.65, 0.8) - 3*health - leftSkew;
   leftScale3 = random(0.6, 0.7) - 5*health - rightSkew;
   rightScale3 = random(0.7, 0.8) - 7*health - leftSkew;
+  r = random(0, 255);
+  g = random(0, 255);
+  b = random(0, 255);
 }
 
 function draw() {
@@ -117,7 +135,7 @@ function branch3(len) {
     pop();
   }
   else {
-    stroke(255, 209, 253);
+    stroke(r, g, b);
     point(0, 0);
   }
 }
