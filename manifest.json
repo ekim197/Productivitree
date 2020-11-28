@@ -19,7 +19,8 @@
     "permissions": [
         "tabs",
         "notifications",
-        "storage"
+        "storage",
+        "history"
       ],
 
     "chrome_url_overrides" : {
