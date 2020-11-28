@@ -19,18 +19,26 @@ function displayResults(window_list) {
   localStorage["angle1"] = 0.5
   localStorage["angle2"] = 0.6
   localStorage["angle3"] = 0.4
-  localStorage["leftScale1"] = 0.77 - 6 * ( 0 + 0.002*allWindowsTabCount)
-  localStorage["rightScale1"] = 0.67 - 2 * ( 0 + 0.002*allWindowsTabCount)
-  localStorage["leftScale2"] = 0.82 - 4 * ( 0 + 0.002*allWindowsTabCount)
-  localStorage["rightScale2"] = 0.72 - 3 * ( 0 + 0.002*allWindowsTabCount)
-  localStorage["leftScale3"] = 0.56 - 5 * ( 0 + 0.002*allWindowsTabCount)
-  localStorage["rightScale3"] = 0.77 - 7 * ( 0 + 0.002*allWindowsTabCount)
+
+  localStorage["leftScale1"] = 0.5  //0.77 - 6 * ( 0 + 0.002*allWindowsTabCount
+  localStorage["rightScale1"] = 0.5 //0.67 - 2 * ( 0 + 0.002*allWindowsTabCount
+  localStorage["leftScale2"] = 0.5  // 0.82 - 4 * ( 0 + 0.002*allWindowsTabCount
+  localStorage["rightScale2"] = 0.5 // 0.72 - 3 * ( 0 + 0.002*allWindowsTabCount
+  localStorage["leftScale3"] = 0.5  //0.56 - 5 * ( 0 + 0.002*allWindowsTabCount
+  localStorage["rightScale3"] = 0.5 //0.77 - 7 * ( 0 + 0.002*allWindowsTabCount
+
+  localStorage["skew"] = 0.4 * (allWindowsTabCount/26)
+  localStorage["leftSkew"] = 0
+  localStorage["rightSkew"] = 0
 
   localStorage["level"] = 0;
   localStorage["branchProb"] = 0.8
-  localStorage["r"] = 1;
+ // localStorage["r"] = 1;
   localStorage["shrinkage"] = 0
-  localStorage["thinness"] = 8
+  localStorage["thinness"] = 6 + allWindowsTabCount
+  localStorage["r"] = 0
+  localStorage["g"] = 0
+  localStorage["b"] = 0
 }
 
 
@@ -66,30 +74,44 @@ function displayResults(window_list) {
     sendResponse({status: localStorage["angle2"] });
     else if (request.method == "getAngle3")
     sendResponse({status: localStorage["angle3"] });
-    else if (request.method == "getleftscale1")
+
+    else if (request.method == "getLeftScale1")
     sendResponse({status: localStorage["leftScale1"] });
-    else if (request.method == "getrightscale1")
+    else if (request.method == "getRightScale1")
     sendResponse({status: localStorage["rightScale1"] });
-    else if (request.method == "getleftscale2")
+    else if (request.method == "getLeftScale2")
     sendResponse({status: localStorage["leftScale2"] });
-    else if (request.method == "getrightscale2")
+    else if (request.method == "getRightScale2")
     sendResponse({status: localStorage["rightScale2"] });
-    else if (request.method == "getleftscale3")
+    else if (request.method == "getLeftScale3")
     sendResponse({status: localStorage["leftScale3"] });
-    else if (request.method == "getrightscale3")
+    else if (request.method == "getRightScale3")
     sendResponse({status: localStorage["rightScale3"] });
+
+    else if (request.method == "getSkew")
+    sendResponse({status: localStorage["skew"] });
+    else if (request.method == "getLeftSkew")
+    sendResponse({status: localStorage["leftSkew"] });
+    else if (request.method == "getRightSkew")
+    sendResponse({status: localStorage["rightSkew"] });
 
     else if (request.method == "getlevel")
     sendResponse({status: localStorage["level"] });
     else if (request.method == "getbranchprob")
     sendResponse({status: localStorage["branchProb"] });
-    else if (request.method == "getr")
-    sendResponse({status: localStorage["r"] });
+    //else if (request.method == "getr")
+    //sendResponse({status: localStorage["r"] });
     else if (request.method == "getshrinkage")
     sendResponse({status: localStorage["shrinkage"] });
     else if (request.method == "getthinness")
     sendResponse({status: localStorage["thinness"] });
 
+    else if (request.method == "getR")
+    sendResponse({status: localStorage["r"] });
+    else if (request.method == "getG")
+    sendResponse({status: localStorage["g"] });
+    else if (request.method == "getB")
+    sendResponse({status: localStorage["b"] });
     else
       sendResponse({}); // snub them.
 });

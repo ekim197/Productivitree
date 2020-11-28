@@ -1,5 +1,26 @@
 var tabs;
 var health;
+var angle1;
+var angle2;
+var angle3;
+
+var leftScale1;
+var rightScale1;
+var leftScale2;
+var rightScale2;
+var leftScale3;
+var rightScale3;
+var skew;
+var leftSkew;
+var rightSkew;
+
+var level;
+var branchProb;
+var shrinkage;
+var thinness;
+var r;
+var g;
+var b;
 
 chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
     tabs = response.status;
@@ -23,29 +44,42 @@ chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
   });
 
 
-  chrome.runtime.sendMessage({method: "getleftscale1"}, function(response) {
+  chrome.runtime.sendMessage({method: "getLeftScale1"}, function(response) {
 
     leftScale1 = response.status;
   });
-  chrome.runtime.sendMessage({method: "getrightscale1"}, function(response) {
+  chrome.runtime.sendMessage({method: "getRightScale1"}, function(response) {
 
     rightScale1 = response.status;
   });
-  chrome.runtime.sendMessage({method: "getleftscale2"}, function(response) {
+  chrome.runtime.sendMessage({method: "getLeftScale2"}, function(response) {
 
     leftScale2 = response.status;
   });
-  chrome.runtime.sendMessage({method: "getrightscale2"}, function(response) {
+  chrome.runtime.sendMessage({method: "getRightScale2"}, function(response) {
 
     rightScale2 = response.status;
   });
-  chrome.runtime.sendMessage({method: "getleftscale3"}, function(response) {
+  chrome.runtime.sendMessage({method: "getLeftScale3"}, function(response) {
 
     leftScale3 = response.status;
   });
-  chrome.runtime.sendMessage({method: "getrightscale3"}, function(response) {
+  chrome.runtime.sendMessage({method: "getRightScale3"}, function(response) {
 
     rightScale3 = response.status;
+
+  });
+  chrome.runtime.sendMessage({method: "getSkew"}, function(response) {
+
+    skew = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getLeftSkew"}, function(response) {
+
+    leftSkew = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getRightSkew"}, function(response) {
+
+    rightSkew = response.status;
   });
 
 
@@ -58,10 +92,10 @@ chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
 
     branchProb = response.status;
   });
-  chrome.runtime.sendMessage({method: "getr"}, function(response) {
+   /*chrome.runtime.sendMessage({method: "getr"}, function(response) {
 
     r = response.status;
-  });
+  }); */
   chrome.runtime.sendMessage({method: "getshrinkage"}, function(response) {
 
     shrinkage = response.status;
@@ -69,6 +103,19 @@ chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
   chrome.runtime.sendMessage({method: "getthinness"}, function(response) {
 
     thinness = response.status;
+
+  });
+  chrome.runtime.sendMessage({method: "getR"}, function(response) {
+
+    r = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getG"}, function(response) {
+
+    g = response.status;
+  });
+  chrome.runtime.sendMessage({method: "getB"}, function(response) {
+
+    b = response.status;
   });
 /*
 async function getTabs() {
@@ -76,10 +123,29 @@ async function getTabs() {
 }
 
 */
+if(tabs > 26)             //concern
+  tabs = 26;
 
 
-
-function setup() {
+  function setup() {
+    createCanvas(windowWidth, windowHeight);
+    if(random() > 0.5) {
+      rightSkew = 0.8*skew;
+    }
+    else {
+      leftSkew = skew;
+    }
+    leftScale1 = random(0.65, 0.75) - 6*health - rightSkew;
+    rightScale1 = random(0.65, 0.75) - 2*health - leftSkew;
+    leftScale2 = random(0.65, 0.8) - 4*health - rightSkew;
+    rightScale2 = random(0.65, 0.8) - 3*health - leftSkew;
+    leftScale3 = random(0.6, 0.7) - 5*health - rightSkew;
+    rightScale3 = random(0.7, 0.8) - 7*health - leftSkew;
+    r = random(0, 255);
+    g = random(0, 255);
+    b = random(0, 255);
+  }
+  /*
     console.log(tabs);
     console.log(health);
     console.log(angle1);
@@ -95,47 +161,33 @@ function setup() {
     console.log(level);
     console.log(branchProb);
     console.log(r);
+    console.log(g);
+    console.log(b);
     console.log(shrinkage);
-    console.log(thinness);
-    
-createCanvas(windowWidth, windowHeight);
-r = Math.random(0, 1);
-}
-
-/*var health = 0 + 0.002*tabs;
-var angle1 = 0.5;
-var angle2 = 0.6;
-var angle3 = 0.4;
-
-var leftScale1 = 0.77-6*health;
-var rightScale1 = 0.67-2*health;
-var leftScale2 = 0.82-4*health;
-var rightScale2 = 0.72-3*health;
-var leftScale3 = 0.56-5*health;
-var rightScale3 = 0.77-7*health;
-
-var level = 0;
-var branchProb = 0.8;
-var r = 1;
-var shrinkage = 0;
-var thinness = 8; */
-
-
+    console.log(thinness);  */
 
 
 function draw() {
-background(230);
-translate(windowWidth/2, height);
-branch1(windowHeight/4 - shrinkage);
+  resizeCanvas(windowWidth, windowHeight);
+  background(255);
+//  fill('green');
+//  rect(0, 0.88*height, windowWidth, height);
+  stroke('green');
+  strokeWeight(0.12*windowHeight);
+  line(0,windowHeight*0.94,windowWidth,windowHeight*0.94);
+  translate(windowWidth/2, height*0.9);
+  branch1(windowHeight/4 - shrinkage);
 
 }
 
 function branch1(len) {
-stroke(82, 51, 51);
-strokeWeight(len/thinness);
-line(0,0,0,-len);
-translate(0, -len);
-if(len > 1) {
+  stroke(82 + (windowHeight/4 - shrinkage - len)*0.1,
+         51 + (windowHeight/4 - shrinkage - len)*0.1,
+         51 + (windowHeight/4 - shrinkage - len)*0.1);
+  strokeWeight(len/thinness);
+  line(0,0,0,-len);
+  translate(0, -len);
+  if(len > 1) {
     push();
     rotate(angle1);
     branch2(len * rightScale1);
@@ -144,19 +196,21 @@ if(len > 1) {
     rotate(-angle1);
     branch3(len * leftScale1);
     pop();
-}
-else {
+  }
+  else if(tabs < 6) {
     stroke(29, 161, 0);
     point(0, 0);
-}
+  }
 }
 
 function branch2(len) {
-stroke(82, 51, 51);
-strokeWeight(len/thinness);
-line(0,0,0,-len);
-translate(0, -len);
-if(len > 1) {
+  stroke(82 + (windowHeight/4 - shrinkage - len)*0.1,
+         51 + (windowHeight/4 - shrinkage - len)*0.1,
+         51 + (windowHeight/4 - shrinkage - len)*0.1);
+  strokeWeight(len/thinness);
+  line(0,0,0,-len);
+  translate(0, -len);
+  if(len > 1) {
     push();
     rotate(angle2);
     branch1(len * rightScale2);
@@ -165,19 +219,21 @@ if(len > 1) {
     rotate(-angle2);
     branch3(len * leftScale2);
     pop();
-}
-else {
+  }
+  else if(tabs < 16) {
     stroke(29, 161, 0);
     point(0, 0);
-}
+  }
 }
 
 function branch3(len) {
-stroke(82, 51, 51);
-strokeWeight(len/thinness);
-line(0,0,0,-len);
-translate(0, -len);
-if(len > 1) {
+  stroke(82 + (windowHeight/4 - shrinkage - len)*0.1,
+         51 + (windowHeight/4 - shrinkage - len)*0.1,
+         51 + (windowHeight/4 - shrinkage - len)*0.1);
+  strokeWeight(len/thinness);
+  line(0,0,0,-len);
+  translate(0, -len);
+  if(len > 1) {
     push();
     rotate(angle3);
     branch1(len * rightScale3);
@@ -186,11 +242,11 @@ if(len > 1) {
     rotate(-angle3);
     branch2(len * leftScale3);
     pop();
-}
-else {
-    stroke(255, 209, 253);
+  }
+  else {
+    stroke(r, g, b);
     point(0, 0);
-}
+  }
 }
 
 
