@@ -62,7 +62,7 @@ function setup() {
 
 function draw() {
   resizeCanvas(windowWidth, windowHeight);
-  background(230);
+  background(255);
 //  fill('green');
 //  rect(0, 0.88*height, windowWidth, height);
   stroke('green');
