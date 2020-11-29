@@ -14,21 +14,15 @@
     },
 
     "browser_action": {
-        "default_icon": "icon_1_48x48.png"
-    },
-    "icons": {
-        "48": "icon_1_48x48.png",
-        "128": "icon_128x128.png"
+        "default_icon": "icon.png"
     },
     "permissions": [
         "tabs",
         "notifications",
-        "storage",
-        "history"
+        "storage"
       ],
 
     "chrome_url_overrides" : {
         "newtab": "test.html"
       }
-      
 }

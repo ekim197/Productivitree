@@ -1,11 +1,23 @@
 <!DOCTYPE html>
+<meta http-equiv="Content-Security-Policy" content="default-src *;">
 <html>
 <body>
 
-    <div id = 'history'></div>
-    <script src = "content.js"></script> 
-    <script src = "background.js"></script> 
-    <script src="display.js"></script>
-    <script src="p5.js"></script>
+
+<script src="p5.js"></script>
+<script src="d3.v4.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+
+
+<div class="flexbox_container">
+    <div class="chart" id="my_dataviz"></div>
+    <div class ="tree" id="my_canvas"></div>   
+</div>
+
+
 </body>
 </html>
+
+<script src="display.js"></script>
