@@ -7,10 +7,16 @@
 //4.Check speed with full tree, I could make it faster
 //5.Check where it should end up
 //6.I can't seem to change color
+//7. Change title font and size?
 
 //Width and Height of
 var width = 700
 var height = 700
+
+var title = "Top 15 Most Visited Websites"
+var titleX = width/2 - 50
+var titleY = 70
+var titleSize = 25
 
 //should be radius of circle if perfect spaced
 var forceCollideSpace = 10
@@ -53,6 +59,14 @@ var svg = d3.select("#my_dataviz")
   .attr("height", height)
   .attr("width", width)
   .append("g")
+
+svg.append("text")
+  .attr("x", titleX)
+  .attr("y", titleY)
+  .style("text-anchor", "middle")
+  .text(title)
+  .attr("font-size", titleSize)
+  .attr("font-weight", "bold")
 
 var node= svg.selectAll(".node")
   .data(data)
