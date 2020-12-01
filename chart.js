@@ -1,44 +1,92 @@
 //Graph code
 
-// set the dimensions and margins of the graph
-var width = 450
-var height = 450
+//Notes
+//1.Check color
+//2.Check that the animation starts from middle or zooms into screeeeeen
+//3.Check different scales
+//4.Check speed with full tree, I could make it faster
+//5.Check where it should end up
+//6.I can't seem to change color
 
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", 450)
-    .attr("height", 450)
+//Width and Height of
+var width = 700
+var height = 700
+
+//should be radius of circle if perfect spaced
+var forceCollideSpace = 10
+
+//between 0 and 1
+var collideSpeed = 0.05
+var radius = 10
+
+//Updating bubbleSizeMultiplier - also update min/max Domain
+var bubbleSizeMultiplier = 1
+
+var minDomain = 1
+var maxDomain = 10
+
+var smallestCircle = 10
+var largestCircle = 100
+
+var endHeightOffset = 100
+var fontSizeMultiplier = 5
+
+//Check d3 website for different color schemes
+var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+//For collision
+var radiusScale = d3.scaleSqrt().domain([minDomain, maxDomain]).range([smallestCircle, largestCircle])
 
 // create dummy data -> just one element per circle
-var data = [{ "name": "A" }, { "name": "B" }, { "name": "C" }, { "name": "D" }, { "name": "E" }, { "name": "F" }, { "name": "G" }, { "name": "H" }]
+var data = [{ "Name": "Web A", "Rank": 1}, { "Name": "Web B", "Rank": 2}, { "Name": "Web C", "Rank": 3}, 
+            { "Name": "Web D", "Rank": 4}, { "Name": "Web E", "Rank": 5}, { "Name": "Web F", "Rank": 6}, 
+            { "Name": "Web G", "Rank": 7}, { "Name": "Web H", "Rank": 8}, { "Name": "Web H", "Rank": 9}, 
+            { "Name": "Web H", "Rank": 10}]
 
-// Initialize the circle: all located at the center of the svg area
-var node = svg.append("g")
-  .selectAll("circle")
+
+data.forEach(function(d, i) {
+  d.Rank = d.Rank * bubbleSizeMultiplier
+})
+
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+  .attr("height", height)
+  .attr("width", width)
+  .append("g")
+
+var node= svg.selectAll(".node")
   .data(data)
   .enter()
-  .append("circle")
-    .attr("r", 25)
-    .attr("cx", width / 2)
-    .attr("cy", height / 2)
-    .style("fill", "#69b3a2")
-    .style("fill-opacity", 0.3)
-    .attr("stroke", "#69a2b2")
-    .style("stroke-width", 4)
+  .append("g")
+  .classed("node", true)
 
-// Features of the forces applied to the nodes:
+node.append("circle")
+  .attr("r", function(data) {return radiusScale(data.Rank)})
+  .style("fill", function(data, i) {
+    return colorScale(i)
+  })
+  .text(function (data) {return data.Name})
+
+node.append("text")
+  .text(function(data) {return data.Name})
+  .style("text-anchor", "middle")
+  .attr("font-faily", "sans-serif")
+  .attr("font-size", function(data) {
+    return radiusScale(data.Rank) / fontSizeMultiplier
+  })
+  .attr("fill", "white")
+
+//Force collide radius should match with radius to be perfect spaced
 var simulation = d3.forceSimulation()
-    .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
-    .force("charge", d3.forceManyBody().strength(0.05)) // Nodes are attracted one each other of value is > 0
-    .force("collide", d3.forceCollide().strength(.01).radius(30).iterations(1)) // Force that avoids circle overlapping
+  .force("forceX", d3.forceX(width/2).strength(collideSpeed))
+  .force("forceY", d3.forceY(height/2 + endHeightOffset).strength(collideSpeed))
+  .force("forceCollide", d3.forceCollide(function(data) { return radiusScale(data.Rank) + 1 }))
 
-// Apply these forces to the nodes and update their positions.
-// Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
-simulation
-    .nodes(data)
-    .on("tick", function(d){
-      node
-          .attr("cx", function(d){ return d.x; })
-          .attr("cy", function(d){ return d.y; })
-    });
+simulation.nodes(data)
+  .on("tick", ticked)
+
+function ticked() { 
+  node.attr("transform", function(data) {
+    return "translate(" + [data.x, data.y] + ")"
+  })
+}
