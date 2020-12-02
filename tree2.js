@@ -1,15 +1,5 @@
 var tabs = 1;
 
-/*
-chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
-    tabs = response.status;
-  });
-
-async function getTabs() {
-    tabs = localStorage["allWindowsTabCount"]
-}
-
-*/
 
 if(tabs > 26)
   tabs = 26;

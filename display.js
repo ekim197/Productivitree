@@ -1,6 +1,3 @@
-
-
-
     var tabs;
     var health;
     var angle1;
@@ -95,9 +92,6 @@
     
         branchProb = response.status;
       });
-       /*chrome.runtime.sendMessage({method: "getr"}, function(response) {
-        r = response.status;
-      }); */
       chrome.runtime.sendMessage({method: "getshrinkage"}, function(response) {
     
         shrinkage = response.status;
@@ -119,12 +113,7 @@
     
         b = response.status;
       });
-    /*
-    async function getTabs() {
-        tabs = localStorage["allWindowsTabCount"]
-    }
-    */
-    if(tabs > 26)             //concern
+    if(tabs > 26)             
       tabs = 26;
     
      
@@ -149,35 +138,10 @@
         g = random(0, 255);
         b = random(0, 255);
       }
-      /*
-        console.log(tabs);
-        console.log(health);
-        console.log(angle1);
-        console.log(angle2);
-        console.log(angle3);
-        console.log(leftScale1);
-        console.log(rightScale1);
-        console.log(leftScale2);
-        console.log(rightScale2);
-        console.log(leftScale3);
-        console.log(rightScale3);
-        console.log(level);
-        console.log(branchProb);
-        console.log(r);
-        console.log(g);
-        console.log(b);
-        console.log(shrinkage);
-        console.log(thinness);  */
     
     
     function draw() {
-      //resizeCanvas(windowWidth, windowHeight);
       background(255, 204, 200);
-    //  fill('green');
-    //  rect(0, 0.88*height, windowWidth, height);
-    /*  stroke('green');
-      strokeWeight(0.12*windowHeight);
-      line(0,windowHeight*0.94,windowWidth,windowHeight*0.94); */
       translate(windowWidth/5, height);
       branch1(windowHeight/4 - shrinkage);
     

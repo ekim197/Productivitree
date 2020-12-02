@@ -20,12 +20,12 @@ function displayResults(window_list) {
   localStorage["angle2"] = 0.6
   localStorage["angle3"] = 0.4
 
-  localStorage["leftScale1"] = 0.5  //0.77 - 6 * ( 0 + 0.002*allWindowsTabCount
-  localStorage["rightScale1"] = 0.5 //0.67 - 2 * ( 0 + 0.002*allWindowsTabCount
-  localStorage["leftScale2"] = 0.5  // 0.82 - 4 * ( 0 + 0.002*allWindowsTabCount
-  localStorage["rightScale2"] = 0.5 // 0.72 - 3 * ( 0 + 0.002*allWindowsTabCount
-  localStorage["leftScale3"] = 0.5  //0.56 - 5 * ( 0 + 0.002*allWindowsTabCount
-  localStorage["rightScale3"] = 0.5 //0.77 - 7 * ( 0 + 0.002*allWindowsTabCount
+  localStorage["leftScale1"] = 0.5  
+  localStorage["rightScale1"] = 0.5 
+  localStorage["leftScale2"] = 0.5  
+  localStorage["rightScale2"] = 0.5 
+  localStorage["leftScale3"] = 0.5  
+  localStorage["rightScale3"] = 0.5 
 
   localStorage["skew"] = 0.4 * (allWindowsTabCount/26)
   localStorage["leftSkew"] = 0
@@ -33,7 +33,6 @@ function displayResults(window_list) {
 
   localStorage["level"] = 0;
   localStorage["branchProb"] = 0.8
- // localStorage["r"] = 1;
   localStorage["shrinkage"] = 0
   localStorage["thinness"] = 6 + allWindowsTabCount
   localStorage["r"] = 0
@@ -99,8 +98,6 @@ function displayResults(window_list) {
     sendResponse({status: localStorage["level"] });
     else if (request.method == "getbranchprob")
     sendResponse({status: localStorage["branchProb"] });
-    //else if (request.method == "getr")
-    //sendResponse({status: localStorage["r"] });
     else if (request.method == "getshrinkage")
     sendResponse({status: localStorage["shrinkage"] });
     else if (request.method == "getthinness")
@@ -113,12 +110,5 @@ function displayResults(window_list) {
     else if (request.method == "getB")
     sendResponse({status: localStorage["b"] });
     else
-      sendResponse({}); // snub them.
+      sendResponse({}); 
 });
- /* 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.method == "getHealth")
-    sendResponse({status: localStorage["health"] });
-  else
-    sendResponse({}); // snub them.
-}); */
