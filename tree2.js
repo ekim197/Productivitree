@@ -1,6 +1,4 @@
-
-
-var tabs = 6;
+var tabs = 7;
 
 /*
 chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
@@ -31,9 +29,6 @@ var skew = 0.4 * (tabs/26);
 var leftSkew = 0;
 var rightSkew = 0;
 
-
-
-var r = 1;
 var shrinkage = 0;
 var thinness = 6 + tabs;
 var r = 0;
@@ -63,8 +58,15 @@ function setup() {
 
 function draw() {
   sway = cos(0.02*frameCount)*sin(0.1*frameCount);
-  background(255, 204, 200);
-  translate(windowWidth/2, height*0.9);
+//  resizeCanvas(windowWidth, windowHeight);
+  background(255);
+//  fill('green');
+//  rect(0, 0.88*height, windowWidth, height);
+/*  stroke('green');
+  strokeWeight(0.12*windowHeight);
+  line(0,windowHeight*0.94,windowWidth,windowHeight*0.94);
+  */
+  translate(windowWidth/2, height);
   branch1(windowHeight/4 - shrinkage);
 
 }
