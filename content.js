@@ -51,7 +51,14 @@ chrome.history.search({
         visitsPerDomain.sort(function (a, b) {
             return b.visitCount - a.visitCount;
         });
-        visitsPerDomain.forEach(value => {
+        var finalHistory = [];
+        if (visitsPerDomain.length > 15) {
+            finalHistory = visitsPerDomain.slice(0,16);
+        }
+        else {
+            finalHistory = visitsPerDomain;
+        }
+        finalHistory.forEach(value => {
             console.log(value.domain + " " + value.visitCount);
         });
     }
