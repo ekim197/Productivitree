@@ -69,10 +69,10 @@ function draw() {
   background(255);
 //  fill('green');
 //  rect(0, 0.88*height, windowWidth, height);
-  stroke('green');
-  strokeWeight(0.12*windowHeight);
-  line(0,windowHeight*0.94,windowWidth,windowHeight*0.94);
-  translate(windowWidth/2, height*0.9);
+//  stroke('green');
+//  strokeWeight(0.12*windowHeight);
+//  line(0,windowHeight*0.94,windowWidth,windowHeight*0.94);
+  translate(windowWidth/2, height);
   branch1(windowHeight/4 - shrinkage);
 
 }
