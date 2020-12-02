@@ -1,6 +1,6 @@
     var tabs;
     var health;
-    var sway = 0;
+    var sway;
     var angle1;
     var angle2;
     var angle3;
@@ -11,6 +11,7 @@
     var rightScale2;
     var leftScale3;
     var rightScale3;
+
     var skew;
     var leftSkew;
     var rightSkew;
@@ -28,6 +29,10 @@
       chrome.runtime.sendMessage({method: "getHealth"}, function(response) {
     
         health = response.status;
+      });
+      chrome.runtime.sendMessage({method: "getSway"}, function(response) {
+    
+        sway = response.status;
       });
       chrome.runtime.sendMessage({method: "getAngle1"}, function(response) {
     
@@ -79,8 +84,7 @@
       chrome.runtime.sendMessage({method: "getRightSkew"}, function(response) {
     
         rightSkew = response.status;
-      });
-    
+      });       
     
       chrome.runtime.sendMessage({method: "getshrinkage"}, function(response) {
     
@@ -134,7 +138,11 @@
     
     
     function draw() {
-      sway = cos(0.02*frameCount)*sin(0.1*frameCount);
+      if(tabs < 15)
+        sway = 0.8*cos(0.018*frameCount)*sin(0.08*frameCount)*sin(0.04*frameCount);
+      else {
+        sway = 0.7*cos(0.015*frameCount) * sin(0.07*frameCount)*sin(0.03*frameCount);
+      }
       background(255, 204, 200);
       translate(windowWidth/5, height);
       branch1(windowHeight/4 - shrinkage);
@@ -150,11 +158,11 @@
       translate(0, -len);
       if(len > 1) {
         push();
-        rotate(angle1 + 0.04*sway);
+        rotate(0.4 + 0.04*sway);
         branch2(len * rightScale1);
         pop();
         push();
-        rotate(-angle1 + 0.04*sway);
+        rotate(-0.4 + 0.04*sway);
         branch3(len * leftScale1);
         pop();
       }
@@ -173,11 +181,11 @@
       translate(0, -len);
       if(len > 1) {
         push();
-        rotate(angle2 + 0.04*sway);
+        rotate(0.6 + 0.04*sway);
         branch1(len * rightScale2);
         pop();
         push();
-        rotate(-angle2 + 0.04*sway);
+        rotate(-0.6 + 0.04*sway);
         branch3(len * leftScale2);
         pop();
       }
@@ -196,11 +204,11 @@
       translate(0, -len);
       if(len > 1) {
         push();
-        rotate(angle3 + 0.04*sway);
+        rotate(0.5 + 0.04*sway);
         branch1(len * rightScale3);
         pop();
         push();
-        rotate(-angle3 + 0.04*sway);
+        rotate(-0.5 + 0.04*sway);
         branch2(len * leftScale3);
         pop();
       }

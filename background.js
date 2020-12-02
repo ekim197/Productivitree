@@ -13,6 +13,7 @@ function displayResults(window_list) {
   localStorage["windowsCount"] = window_list.length;
   localStorage["allWindowsTabsCount"] = allWindowsTabCount;
   localStorage["health"] = 0 + 0.002*allWindowsTabCount
+  localStorage["sway"] = 0
 
   localStorage["angle1"] = 0.5
   localStorage["angle2"] = 0.6
@@ -61,6 +62,9 @@ function displayResults(window_list) {
       sendResponse({status: localStorage["allWindowsTabsCount"] });
     else if (request.method == "getHealth")
     sendResponse({status: localStorage["health"] });
+    else if (request.method == "getSway")
+    sendResponse({status: localStorage["sway"] });
+
     else if (request.method == "getAngle1")
     sendResponse({status: localStorage["angle1"] });
     else if (request.method == "getAngle2")

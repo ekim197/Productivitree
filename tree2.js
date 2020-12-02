@@ -58,14 +58,7 @@ function setup() {
 
 function draw() {
   sway = cos(0.02*frameCount)*sin(0.1*frameCount);
-//  resizeCanvas(windowWidth, windowHeight);
-  background(255);
-//  fill('green');
-//  rect(0, 0.88*height, windowWidth, height);
-/*  stroke('green');
-  strokeWeight(0.12*windowHeight);
-  line(0,windowHeight*0.94,windowWidth,windowHeight*0.94);
-  */
+  background(255, 204, 200);
   translate(windowWidth/2, height);
   branch1(windowHeight/4 - shrinkage);
 
