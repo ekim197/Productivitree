@@ -1,14 +1,4 @@
-<head>
 
-<!--<body style="background-color:lightblue;">-->
-<script src="p5.js"></script>
-<script src="p5.dom.js"></script>
-
-
-</head>
-<body>
-
-<script>
 
 var tabs = 6;
 
@@ -155,9 +145,3 @@ function branch3(len) {
     point(0, 0);
   }
 }
-
-
-</script>
-
-
-</body>
