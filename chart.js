@@ -1,16 +1,46 @@
-//Graph code
 
-//Notes
-//1.Check color
-//2.Check that the animation starts from middle or zooms into screeeeeen
-//3.Check different scales
-//4.Check speed with full tree, I could make it faster
-//5.Check where it should end up
-//6.I can't seem to change color
-//7.Change title font and size?
-//8.Maybe add button to hide graph? - save in other tabs too
+/*
+Graph code
 
-//Width and Height of
+Notes
+1.Check color
+2.Check that the animation starts from middle or zooms into screeeeeen
+3.Check different scales
+4.Check speed with full tree, I could make it faster
+5.Check where it should end up
+6.I can't seem to change color
+7.Change title font and size?
+8.Maybe add button to hide graph? - save in other tabs too
+9.Can click on the link on the bubble
+10.Display visit count
+*/
+
+
+function getData(callback) {
+  var data = [];
+
+
+  chrome.runtime.sendMessage({method: "getWebsites"}, function(response) {
+    responseData = response.status;
+    responseData = responseData.substring(0, responseData.length - 1)
+    var tempData = responseData.split(",");
+    
+    for(var i = 0; i < tempData.length; i++) {
+      const obj = {
+        Name: tempData[i],
+        Rank: i + 1
+      };
+
+      data[i] = obj
+    }
+
+    callback(data)
+}); 
+}
+
+
+function makeChart(data) {
+  //Width and Height of
 var width = 700
 var height = 700
 
@@ -30,7 +60,7 @@ var radius = 10
 var bubbleSizeMultiplier = 1
 
 var minDomain = 1
-var maxDomain = 10
+var maxDomain = 16
 
 var smallestCircle = 10
 var largestCircle = 100
@@ -44,12 +74,14 @@ var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 //For collision
 var radiusScale = d3.scaleSqrt().domain([minDomain, maxDomain]).range([smallestCircle, largestCircle])
 
+/*
 // create dummy data -> just one element per circle
-var data = [{ "Name": "Web A", "Rank": 1}, { "Name": "Web B", "Rank": 2}, { "Name": "Web C", "Rank": 3}, 
+var data2 = [{ "Name": "Web A", "Rank": 1}, { "Name": "Web B", "Rank": 2}, { "Name": "Web C", "Rank": 3}, 
             { "Name": "Web D", "Rank": 4}, { "Name": "Web E", "Rank": 5}, { "Name": "Web F", "Rank": 6}, 
             { "Name": "Web G", "Rank": 7}, { "Name": "Web H", "Rank": 8}, { "Name": "Web H", "Rank": 9}, 
             { "Name": "Web H", "Rank": 10}]
 
+*/
 
 data.forEach(function(d, i) {
   d.Rank = d.Rank * bubbleSizeMultiplier
@@ -100,8 +132,11 @@ var simulation = d3.forceSimulation()
 simulation.nodes(data)
   .on("tick", ticked)
 
-function ticked() { 
+function ticked() {
   node.attr("transform", function(data) {
     return "translate(" + [data.x, data.y] + ")"
   })
 }
+}
+
+getData(makeChart);

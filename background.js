@@ -103,6 +103,8 @@ function displayResults(window_list) {
     sendResponse({status: localStorage["g"] });
     else if (request.method == "getB")
     sendResponse({status: localStorage["b"] });
+    else if(request.method == "getWebsites")
+    sendResponse({status: localStorage["websites"]});
     else
       sendResponse({}); 
 });
@@ -170,5 +172,13 @@ chrome.history.search({
       finalHistory.forEach(value => {
           console.log(value.domain + " " + value.visitCount);
       });
+
+      
+      var data = [];
+      finalHistory.forEach(value => {
+        data += value.domain + ","
+      })
+
+      localStorage["websites"] = data;
   }
 );
