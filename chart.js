@@ -7,7 +7,8 @@
 //4.Check speed with full tree, I could make it faster
 //5.Check where it should end up
 //6.I can't seem to change color
-//7. Change title font and size?
+//7.Change title font and size?
+//8.Maybe add button to hide graph? - save in other tabs too
 
 //Width and Height of
 var width = 700
