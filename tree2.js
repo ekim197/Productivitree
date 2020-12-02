@@ -1,10 +1,31 @@
-var tabs = 1;
+<head>
 
+<!--<body style="background-color:lightblue;">-->
+<script src="p5.js"></script>
+<script src="p5.dom.js"></script>
+
+
+</head>
+<body>
+
+<script>
+
+var tabs = 6;
+
+/*
+chrome.runtime.sendMessage({method: "getTabs"}, function(response) {
+    tabs = response.status;
+  });
+async function getTabs() {
+    tabs = localStorage["allWindowsTabCount"]
+}
+*/
 
 if(tabs > 26)
   tabs = 26;
 var health = 0 + 0.002*tabs;
 
+var sway = 0;
 
 var angle1 = 0.5;
 var angle2 = 0.6;
@@ -48,10 +69,13 @@ function setup() {
   r = random(0, 255);
   g = random(0, 255);
   b = random(0, 255);
+  if(tabs < 7)
+    noLoop();
 }
 
 function draw() {
-  resizeCanvas(windowWidth, windowHeight);
+  sway = cos(0.02*frameCount)*sin(0.1*frameCount);
+//  resizeCanvas(windowWidth, windowHeight);
   background(255);
 //  fill('green');
 //  rect(0, 0.88*height, windowWidth, height);
@@ -72,11 +96,11 @@ function branch1(len) {
   translate(0, -len);
   if(len > 1) {
     push();
-    rotate(angle1);
+    rotate(angle1 + 0.04*sway);
     branch2(len * rightScale1);
     pop();
     push();
-    rotate(-angle1);
+    rotate(-angle1 + 0.04*sway);
     branch3(len * leftScale1);
     pop();
   }
@@ -95,11 +119,11 @@ function branch2(len) {
   translate(0, -len);
   if(len > 1) {
     push();
-    rotate(angle2);
+    rotate(angle2 + 0.04*sway);
     branch1(len * rightScale2);
     pop();
     push();
-    rotate(-angle2);
+    rotate(-angle2 + 0.04*sway);
     branch3(len * leftScale2);
     pop();
   }
@@ -118,11 +142,11 @@ function branch3(len) {
   translate(0, -len);
   if(len > 1) {
     push();
-    rotate(angle3);
+    rotate(angle3 + 0.04*sway);
     branch1(len * rightScale3);
     pop();
     push();
-    rotate(-angle3);
+    rotate(-angle3 + 0.04*sway);
     branch2(len * leftScale3);
     pop();
   }
@@ -131,3 +155,9 @@ function branch3(len) {
     point(0, 0);
   }
 }
+
+
+</script>
+
+
+</body>
