@@ -14,8 +14,6 @@ function displayResults(window_list) {
   localStorage["allWindowsTabsCount"] = allWindowsTabCount;
   localStorage["health"] = 0 + 0.002*allWindowsTabCount
 
-  console.log(localStorage["health"])
-
   localStorage["angle1"] = 0.5
   localStorage["angle2"] = 0.6
   localStorage["angle3"] = 0.4
@@ -31,8 +29,6 @@ function displayResults(window_list) {
   localStorage["leftSkew"] = 0
   localStorage["rightSkew"] = 0
 
-  localStorage["level"] = 0;
-  localStorage["branchProb"] = 0.8
   localStorage["shrinkage"] = 0
   localStorage["thinness"] = 6 + allWindowsTabCount
   localStorage["r"] = 0
@@ -94,10 +90,6 @@ function displayResults(window_list) {
     else if (request.method == "getRightSkew")
     sendResponse({status: localStorage["rightSkew"] });
 
-    else if (request.method == "getlevel")
-    sendResponse({status: localStorage["level"] });
-    else if (request.method == "getbranchprob")
-    sendResponse({status: localStorage["branchProb"] });
     else if (request.method == "getshrinkage")
     sendResponse({status: localStorage["shrinkage"] });
     else if (request.method == "getthinness")

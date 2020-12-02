@@ -1,5 +1,6 @@
     var tabs;
     var health;
+    var sway = 0;
     var angle1;
     var angle2;
     var angle3;
@@ -14,8 +15,6 @@
     var leftSkew;
     var rightSkew;
     
-    var level;
-    var branchProb;
     var shrinkage;
     var thinness;
     var r;
@@ -83,15 +82,6 @@
       });
     
     
-    
-      chrome.runtime.sendMessage({method: "getlevel"}, function(response) {
-    
-        level = response.status;
-      });
-      chrome.runtime.sendMessage({method: "getbranchprob"}, function(response) {
-    
-        branchProb = response.status;
-      });
       chrome.runtime.sendMessage({method: "getshrinkage"}, function(response) {
     
         shrinkage = response.status;
@@ -113,6 +103,7 @@
     
         b = response.status;
       });
+      
     if(tabs > 26)             
       tabs = 26;
     
@@ -137,10 +128,13 @@
         r = random(0, 255);
         g = random(0, 255);
         b = random(0, 255);
+        if(tabs < 7)
+        noLoop();
       }
     
     
     function draw() {
+      sway = cos(0.02*frameCount)*sin(0.1*frameCount);
       background(255, 204, 200);
       translate(windowWidth/5, height);
       branch1(windowHeight/4 - shrinkage);
@@ -156,11 +150,11 @@
       translate(0, -len);
       if(len > 1) {
         push();
-        rotate(angle1);
+        rotate(angle1 + 0.04*sway);
         branch2(len * rightScale1);
         pop();
         push();
-        rotate(-angle1);
+        rotate(-angle1 + 0.04*sway);
         branch3(len * leftScale1);
         pop();
       }
@@ -179,11 +173,11 @@
       translate(0, -len);
       if(len > 1) {
         push();
-        rotate(angle2);
+        rotate(angle2 + 0.04*sway);
         branch1(len * rightScale2);
         pop();
         push();
-        rotate(-angle2);
+        rotate(-angle2 + 0.04*sway);
         branch3(len * leftScale2);
         pop();
       }
@@ -202,11 +196,11 @@
       translate(0, -len);
       if(len > 1) {
         push();
-        rotate(angle3);
+        rotate(angle3 + 0.04*sway);
         branch1(len * rightScale3);
         pop();
         push();
-        rotate(-angle3);
+        rotate(-angle3 + 0.04*sway);
         branch2(len * leftScale3);
         pop();
       }
@@ -215,4 +209,3 @@
         point(0, 0);
       }
     }
-    
