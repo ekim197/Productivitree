@@ -47,7 +47,7 @@ var height = 700
 var title = "Top 15 Most Visited Websites"
 var titleX = width/2 - 50
 var titleY = 70
-var titleSize = 25
+var titleSize = 25  
 
 //should be radius of circle if perfect spaced
 var forceCollideSpace = 10
