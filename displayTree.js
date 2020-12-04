@@ -3,6 +3,7 @@ var thisMonth = "noMonth";
 var date = "No date obtained";
 var thisHour = 00;
 var thisMinute = 00;
+var ampm = "AM";
 
 var tabs;
 var health;
@@ -166,7 +167,7 @@ function draw() {
   fill(255, 204, 200);
   rect(10, 10, w, 12);
   fill(0);
-  text(date, windowWidth / 3.4, 37);
+  text(date, windowWidth / 3.8, 37);
 
   translate(windowWidth / 5, height);
   branch1(windowHeight / 4 - shrinkage);
@@ -288,8 +289,17 @@ function setDate() {
   thisYear = year();
   thisDay = day();
   thisHour = hour();
+  if(thisHour > 12) {
+    thisHour = thisHour - 12;
+    ampm = "PM";
+  }
+  else if(thisHour = 12)
+    ampm = "PM";
+  else if(thisHour = 0)
+    thisHour = 12;
+
   thisMinute = minute();
   if(thisMinute < 10)
     thisMinute = "0" + thisMinute;
-  date = thisHour + ":" + thisMinute + " " + thisMonth + " " + thisDay + ", " + thisYear;
+  date = thisHour + ":" + thisMinute + " " + ampm + " " + thisMonth + " " + thisDay + ", " + thisYear;
 }
