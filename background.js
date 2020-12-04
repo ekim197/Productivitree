@@ -144,7 +144,7 @@ chrome.history.search({
       for (var i = 0; i < historyItems.length; ++i) {
           var historyItem = historyItems[i];
           var url = new URL(historyItem.url);
-          var domain = url.hostname;      // get the domain of the given url
+          var domain = url.hostname || historyItem.protocol;      // get the domain of the given url
           var existingDomain = findVisitByDomain(visitsPerDomain, domain);
           
           // if the domain being scanned does not exist (i.e., we come across a new domain), then add it
@@ -164,7 +164,7 @@ chrome.history.search({
       });
       var finalHistory = [];
       if (visitsPerDomain.length > 15) {
-          finalHistory = visitsPerDomain.slice(0,16);
+          finalHistory = visitsPerDomain.slice(0,15);
       }
       else {
           finalHistory = visitsPerDomain;
