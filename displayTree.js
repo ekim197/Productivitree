@@ -18,6 +18,7 @@ var rightSkew;
 
 var shrinkage;
 var thinness;
+
 var r;
 var g;
 var b;
@@ -112,7 +113,6 @@ chrome.runtime.sendMessage({ method: "getB" }, function (response) {
 
 if (tabs > 26)
   tabs = 26;
-
 
 function setup() {
   var windowWidth = document.getElementById("my_canvas").offsetWidth;
