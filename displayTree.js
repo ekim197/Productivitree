@@ -294,9 +294,9 @@ function setDate() {
     thisHour = thisHour - 12;
     ampm = "PM";
   }
-  else if(thisHour = 12)
+  else if(thisHour == 12)
     ampm = "PM";
-  else if(thisHour = 0)
+  else if(thisHour == 0)
     thisHour = 12;
 
   thisMinute = minute();
