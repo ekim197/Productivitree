@@ -22,6 +22,8 @@ var r;
 var g;
 var b;
 
+var swayLimit = 9;
+
 chrome.runtime.sendMessage({ method: "getTabs" }, function (response) {
   tabs = response.status;
 });
@@ -132,7 +134,7 @@ function setup() {
   r = random(0, 255);
   g = random(0, 255);
   b = random(0, 255);
-  if (tabs < 7)
+  if (tabs < swayLimit)
     noLoop();
 }
 
@@ -149,54 +151,10 @@ function draw() {
 
 }
 
-function branch1(len) {
-  stroke(82 + (windowHeight / 4 - shrinkage - len) * 0.1,
-    51 + (windowHeight / 4 - shrinkage - len) * 0.1,
-    51 + (windowHeight / 4 - shrinkage - len) * 0.1);
-  strokeWeight(len / thinness);
-  line(0, 0, 0, -len);
-  translate(0, -len);
-  if (len > 1) {
-    push();
-    rotate(0.4 + 0.04 * sway);
-    branch2(len * rightScale1);
-    pop();
-    push();
-    rotate(-0.4 + 0.04 * sway);
-    branch2(len * leftScale1);
-    pop();
-  }
-  else if (tabs < 6) {
-    stroke(29, 161, 0);
-    point(0, 0);
-  }
-}
-
-function branch2(len) {
-  stroke(82 + (windowHeight / 4 - shrinkage - len) * 0.1,
-    51 + (windowHeight / 4 - shrinkage - len) * 0.1,
-    51 + (windowHeight / 4 - shrinkage - len) * 0.1);
-  strokeWeight(len / thinness);
-  line(0, 0, 0, -len);
-  translate(0, -len);
-  if (len > 1) {
-    push();
-    rotate(0.6 + 0.04 * sway);
-    branch1(len * rightScale2);
-    pop();
-    push();
-    rotate(-0.6 + 0.04 * sway);
-    branch1(len * leftScale2);
-    pop();
-  }
-  else if (tabs < 16) {
-    stroke(29, 161, 0);
-    point(0, 0);
-  }
-}
 
 
-/*
+
+
 function branch1(len) {
   stroke(82 + (windowHeight / 4 - shrinkage - len) * 0.1,
     51 + (windowHeight / 4 - shrinkage - len) * 0.1,
@@ -266,5 +224,4 @@ function branch3(len) {
   }
 }
 
-*/
 
