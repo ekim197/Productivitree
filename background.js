@@ -169,11 +169,7 @@ chrome.history.search({
       else {
           finalHistory = visitsPerDomain;
       }
-      finalHistory.forEach(value => {
-          console.log(value.domain + " " + value.visitCount);
-      });
-
-      
+  
       var data = [];
       finalHistory.forEach(value => {
         data += value.domain + ","

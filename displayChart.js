@@ -20,20 +20,17 @@ function getData(callback) {
 }
 
 function makeChart(data) {
-  //Width and Height of
-  /*
-  var width = 700
-  var height = 700
-  */
+  //Width and Height of chart
 
   var width = document.getElementById("my_dataviz").offsetWidth
   var height = document.getElementById("my_dataviz").offsetHeight
 
   //Title properties
-  var title = "Top 15 Most Visited Websites"
+  var title = "Your Recent Websites"
   var titleX = width / 2 - 50
   var titleY = 40
   var titleSize = 25
+  var titleFont = "sans-serif"
 
   //between 0 and 1
   var collideSpeed = 0.05
@@ -42,13 +39,7 @@ function makeChart(data) {
   var bubbleSizeMultiplier = 1
 
   var minDomain = 1
-  var maxDomain = 16
-
-  /*
-  var smallestCircle = 10
-  var largestCircle = 100
-
-  */
+  var maxDomain = 15
 
   var smallestCircle = 25
   var largestCircle = 80
@@ -60,7 +51,8 @@ function makeChart(data) {
   var fontSizeMultiplier = 5
 
   //Check d3 website for different color schemes
-  var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+  //var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+  var colorScale = ["#CB997E", "#EDDCD2", "#FFF1E6",  "#F0EFEB", "#DDBEA9", "#A5A58D", "#B7B7A4"]
 
   //For collision
   var radiusScale = d3.scaleSqrt().domain([minDomain, maxDomain]).range([smallestCircle, largestCircle])
@@ -82,6 +74,7 @@ function makeChart(data) {
     .text(title)
     .attr("font-size", titleSize)
     .attr("font-weight", "bold")
+    .attr("font-family", titleFont)
 
   var node = svg.selectAll(".node")
     .data(data)
@@ -90,11 +83,12 @@ function makeChart(data) {
     .classed("node", true)
 
   node.append("circle")
-    .attr("r", function (data) { return radiusScale(data.Rank) })
-    .style("fill", function (data, i) {
-      return colorScale(i)
-    })
-    .text(function (data) { return data.Name })
+  .attr("r", function (data) { return radiusScale(data.Rank) })
+  .style("fill", function (data, i) {
+    return colorScale[i % colorScale.length]
+  })
+  .text(function (data) { return data.Name })
+
 
   node.append("text")
     .text(function (data) { return data.Name })
