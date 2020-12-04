@@ -168,7 +168,7 @@ function draw() {
   fill(backgroundColor);
   rect(10, 10, w, 12);
   fill(0);
-  text(date, windowWidth / 3.8, 37);
+  text(date, windowWidth / 5, 37);
 
   translate(windowWidth / 5, height);
   branch1(windowHeight / 4 - shrinkage);
