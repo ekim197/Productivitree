@@ -21,13 +21,18 @@ function getData(callback) {
 
 function makeChart(data) {
   //Width and Height of
+  /*
   var width = 700
   var height = 700
+  */
+
+  var width = document.getElementById("my_dataviz").offsetWidth
+  var height = document.getElementById("my_dataviz").offsetHeight
 
   //Title properties
   var title = "Top 15 Most Visited Websites"
   var titleX = width / 2 - 50
-  var titleY = 30
+  var titleY = 40
   var titleSize = 25
 
   //between 0 and 1
@@ -39,8 +44,14 @@ function makeChart(data) {
   var minDomain = 1
   var maxDomain = 16
 
+  /*
   var smallestCircle = 10
   var largestCircle = 100
+
+  */
+
+  var smallestCircle = 25
+  var largestCircle = 80
 
   //Where the circles ends up
   var endHeightOffset = 25

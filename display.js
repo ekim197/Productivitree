@@ -151,10 +151,6 @@ function draw() {
 
 }
 
-
-
-
-
 function branch1(len) {
   stroke(82 + (windowHeight / 4 - shrinkage - len) * 0.1,
     51 + (windowHeight / 4 - shrinkage - len) * 0.1,

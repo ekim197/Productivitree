@@ -28,6 +28,6 @@
       ],
 
     "chrome_url_overrides" : {
-        "newtab": "test.html"
+        "newtab": "ProductiviTree.html"
       }
 }
