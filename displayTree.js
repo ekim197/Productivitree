@@ -146,7 +146,6 @@ function setup() {
   setDate();
 }
 
-
 function draw() {
   text("test2", 100, 100);
   if (tabs < 15)

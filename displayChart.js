@@ -49,10 +49,11 @@ function makeChart(data) {
 
   //Label properties
   var fontSizeMultiplier = 5
+  var circleLabelColor = "black"
 
   //Check d3 website for different color schemes
   //var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-  var colorScale = ["#CB997E", "#EDDCD2", "#FFF1E6",  "#F0EFEB", "#DDBEA9", "#A5A58D", "#B7B7A4"]
+  var colorScale = ["#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#A0C4FF", "#BDB2FF"]
 
   //For collision
   var radiusScale = d3.scaleSqrt().domain([minDomain, maxDomain]).range([smallestCircle, largestCircle])
@@ -97,7 +98,7 @@ function makeChart(data) {
     .attr("font-size", function (data) {
       return radiusScale(data.Rank) / fontSizeMultiplier
     })
-    .attr("fill", "white")
+    .attr("fill", circleLabelColor)
 
   //Force collide radius should match with radius to be perfect spaced
   var simulation = d3.forceSimulation()
