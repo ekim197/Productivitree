@@ -1,3 +1,9 @@
+var thisDay = 1;
+var thisMonth = "noMonth";
+var date = "No date obtained";
+var thisHour = 00;
+var thisMinute = 00;
+
 var tabs;
 var health;
 var sway;
@@ -136,16 +142,33 @@ function setup() {
   b = random(0, 255);
   if (tabs < swayLimit)
     noLoop();
+
+  setDate();
 }
 
 
 function draw() {
+  text("test2", 100, 100);
   if (tabs < 15)
     sway = 0.8 * cos(0.018 * frameCount) * sin(0.08 * frameCount) * sin(0.04 * frameCount);
   else {
     sway = 0.7 * cos(0.015 * frameCount) * sin(0.07 * frameCount) * sin(0.03 * frameCount);
   }
+
   background(255, 204, 200);
+
+//  text("test", 50, 50);
+
+  textSize(25);
+//  textFont('arial black');
+  textStyle(BOLD);
+  noStroke();
+  var w = textWidth(date);
+  fill(255, 204, 200);
+  rect(10, 10, w, 12);
+  fill(0);
+  text(date, windowWidth / 3.4, 37);
+
   translate(windowWidth / 5, height);
   branch1(windowHeight / 4 - shrinkage);
 
@@ -221,3 +244,53 @@ function branch3(len) {
 }
 
 
+function setDate() {
+  switch (month()) {
+  case 1:
+      thisMonth = "January";
+      break;
+  case 2:
+      thisMonth = "February";
+      break;
+  case 3:
+      thisMonth = "March";
+      break;
+  case 4:
+      thisMonth = "April";
+      break;
+  case 5:
+      thisMonth = "May";
+      break;
+  case 6:
+      thisMonth = "June";
+      break;
+  case 7:
+      thisMonth = "July";
+      break;
+  case 8:
+      thisMonth = "August";
+      break;
+  case 9:
+      thisMonth = "September";
+      break;
+  case 10:
+      thisMonth = "October";
+      break;
+  case 11:
+      thisMonth = "November";
+      break;
+  case 12:
+      thisMonth = "December";
+      break;
+    default: console.log("invalid month returned by month() function");
+  }
+
+
+  thisYear = year();
+  thisDay = day();
+  thisHour = hour();
+  thisMinute = minute();
+  if(thisMinute < 10)
+    thisMinute = "0" + thisMinute;
+  date = thisHour + ":" + thisMinute + " " + thisMonth + " " + thisDay + ", " + thisYear;
+}
