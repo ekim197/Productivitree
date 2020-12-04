@@ -138,7 +138,6 @@ function setup() {
     noLoop();
 }
 
-
 function draw() {
   if (tabs < 15)
     sway = 0.8 * cos(0.018 * frameCount) * sin(0.08 * frameCount) * sin(0.04 * frameCount);
