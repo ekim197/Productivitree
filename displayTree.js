@@ -26,6 +26,9 @@ var rightSkew;
 var shrinkage;
 var thinness;
 
+var txtSize = 25;
+var backgroundColor;
+
 var r;
 var g;
 var b;
@@ -117,6 +120,9 @@ chrome.runtime.sendMessage({ method: "getB" }, function (response) {
 
   b = response.status;
 });
+chrome.runtime.sendMessage({ method: "getBackgroundColor1" }, function (response) {
+  backgroundColor = response.status;
+});
 
 if (tabs > 26)
   tabs = 26;
@@ -148,23 +154,18 @@ function setup() {
 }
 
 function draw() {
-  text("test2", 100, 100);
   if (tabs < 15)
     sway = 0.8 * cos(0.018 * frameCount) * sin(0.08 * frameCount) * sin(0.04 * frameCount);
   else {
     sway = 0.7 * cos(0.015 * frameCount) * sin(0.07 * frameCount) * sin(0.03 * frameCount);
   }
 
-  background(255, 204, 200);
-
-//  text("test", 50, 50);
-
-  textSize(25);
-//  textFont('arial black');
+  background(backgroundColor)
+  textSize(txtSize);
   textStyle(BOLD);
   noStroke();
   var w = textWidth(date);
-  fill(255, 204, 200);
+  fill(backgroundColor);
   rect(10, 10, w, 12);
   fill(0);
   text(date, windowWidth / 3.8, 37);

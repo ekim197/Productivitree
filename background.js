@@ -1,3 +1,7 @@
+var backgroundColorSets = ["#8E9AAF", "#CBC0D3", "#EFD3D7", "#FEEAFA", "#DEE2FF"];
+var counter1 = 0;
+var counter2 = 0;
+
 function getAllStats(callback) {
   chrome.windows.getAll({populate: true}, function (window_list) {
     callback(window_list);
@@ -105,6 +109,20 @@ function displayResults(window_list) {
     sendResponse({status: localStorage["b"] });
     else if(request.method == "getWebsites")
     sendResponse({status: localStorage["websites"]});
+    else if(request.method == "getBackgroundColor1") {
+      localStorage["backgroundColor1"] = backgroundColorSets[counter1];
+      if(++counter1 == backgroundColorSets.length) {
+        counter1 = counter1 % backgroundColorSets.length;
+      }
+      sendResponse({status: localStorage["backgroundColor1"]});
+    }
+    else if(request.method == "getBackgroundColor2") {
+      localStorage["backgroundColor2"] = backgroundColorSets[counter2];
+      if(++counter2 == backgroundColorSets.length) {
+        counter2 = counter2 % backgroundColorSets.length;
+      }
+      sendResponse({status: localStorage["backgroundColor2"]});
+    }
     else
       sendResponse({}); 
 });
@@ -115,12 +133,6 @@ function displayResults(window_list) {
  * https://developer.chrome.com/extensions/history
  * 
  */
-
- /* 
-  * NOTE: Something undefined will show up if you run it under a content script. Run it under a background script 
-  * or something is probably the best idea.
-  * 
-  */
 
  function findVisitByDomain(visits, domain) {
   for (var i = 0; i < visits.length; ++i) {

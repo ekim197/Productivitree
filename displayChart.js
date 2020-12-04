@@ -1,5 +1,10 @@
 function getData(callback) {
   var data = [];
+  var backgroundColor;
+
+  chrome.runtime.sendMessage({ method: "getBackgroundColor2" }, function (response) {
+    backgroundColor = response.status;
+  });
 
   chrome.runtime.sendMessage({ method: "getWebsites" }, function (response) {
     responseData = response.status;
@@ -14,16 +19,19 @@ function getData(callback) {
 
       data[i] = obj
     }
-
-    callback(data)
+    callback(data, backgroundColor)
   });
 }
 
-function makeChart(data) {
+function makeChart(data, backgroundColor) {
   //Width and Height of chart
 
   var width = document.getElementById("my_dataviz").offsetWidth
   var height = document.getElementById("my_dataviz").offsetHeight
+  var backCol = backgroundColor
+
+  document.body.style.background = backCol;
+
 
   //Title properties
   var title = "Your Recent Websites"
@@ -54,7 +62,7 @@ function makeChart(data) {
   //Check d3 website for different color schemes
   //var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
   var colorScale = ["#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#A0C4FF", "#BDB2FF"]
-
+  
   //For collision
   var radiusScale = d3.scaleSqrt().domain([minDomain, maxDomain]).range([smallestCircle, largestCircle])
 

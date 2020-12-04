@@ -16,8 +16,9 @@
     height: 100vh;
 }
 
+/*background-color: rgb(255, 204, 200);*/
 #my_dataviz {
-    background-color: rgb(255, 204, 200);
+    
     min-width: 700px;
     max-width: 700px;
 }
